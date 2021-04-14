@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Funds</title>
+	<style type="text/css">
+
+		body{
+			font-family: Roboto;
+			background: #8E0E00;
+			background: linear-gradient(to left, #8E0E00, #1F1C18);
+			
+		}
+
+		:root {
+			--error-color: #dc3545;
+			--success-color: #28a745;
+			--warning-color: #ffc107;
+		}
+
+		#container {
+			height: 380px;
+			width: 360px;
+			margin: 100px auto;
+			background: #f7f7f7;
+			box-shadow: 0 0 3px rgba(0,0,0,0.1);
+			border-radius: 20px;
+
+		}
+		h1 {
+			background: #1F030C;
+			color: white;
+			margin: 0;
+			padding: 10px 95px;
+			text-transform: uppercase;
+			text-align: center;
+			font-size: 17.5px;
+			font-weight: normal;
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+			font-weight: bold;
+		}
+
+		p {
+			padding-left: 50px;
+		}
+		.form {
+			padding: 10px 20px;
+		}
+		.form-field {
+			margin-bottom: 5px;
+		}
+		.form-field label {
+			display: block;
+			color: #777;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+		.form-field input {
+			border: solid 1px #f0f0f0;
+			border-radius: 6px;
+			padding: 10px;
+			margin-bottom: 4px;
+			font-size: 12px;
+			display: block;
+			width: 92%;
+		}
+		
+		.form-field.error input {
+			border-color: var(--error-color);
+		}
+		.form-field.success input {
+			border-color: var(--success-color);
+		}
+		.form-field small {
+			color: var(--error-color);
+		}
+		.btn {
+			width: 100%;
+			padding: 3%;
+			background: #007bff;
+			border-bottom: 2px solid #007bff;
+			color: #fff;
+			text-transform: uppercase;
+			font-weight: bold;
+			margin-top: 40px;
+			margin-left: 13px;
+		}
+		.btn:hover {
+			background: #0069d9;
+			cursor: pointer;
+		}
+		.btn:focus {
+			outline: none;
+		}
+		.privacy {
+			font-size: 11px;
+			margin-top: 30px;
+			margin-right: 15px;
+			
+		}
+
+	</style>
+
+</head>
+<body>
+<div id="container">
+
+	<h1>Add Fund</h1>
+	<p></p>
+
+	<form id="fund" class="form">
+
+
+	<div class="form-field">
+		<label for="amount">Amount:</label>
+		<input type="number" name="amount" id="amount" autocomplete="off" placeholder="Enter Ammount">
+		<small></small>
+	</div>
+
+	<div class="form-field">
+		<input type="submit" value="Add fund" class="btn" id="funde">
+	</div>
+
+
+</form>
+</div>
+
+
+<script type="text/javascript">
+
+	const submitBtn = document.getElementById('funde');
+
+		const aMount = document.getElementById('amount');
+
+
+
+		const checkAmount = () => {
+			let valid = false;
+			const min = 0, max = 100000000000;
+			const amOunt = aMount.value.trim();
+
+			  if (!isBetween(amOunt.length, min, max)){
+				showError(aMount, 'First name must be between ' + min +' and ' + max + ' character ');
+			} else {
+				showSuccess(aMount);
+				valid = true;
+				//localStorage.setItem("fname", fNname);
+			}
+			return valid;
+		};
+
+
+
+	const isBetween = (length, min, max) => length < min || length > max ? false : true;
+	const isRequired = value => value === '' ? false : true;
+
+	
+
+	const showSuccess = (input) => {
+			
+			const formField = input.parentElement;
+		
+			formField.classList.remove('error');
+			formField.classList.add('success');
+			
+			const error = formField.querySelector('small');
+			error.textContent = "";
+		};
+
+	const showError = (input, message) => {
+			const formField = input.parentElement;
+			formField.classList.remove('success');
+			formField.classList.add('error');
+			const error = formField.querySelector('small');
+			error.textContent = message;
+		};
+
+
+
+		submitBtn.addEventListener('click', function(e){
+			e.preventDefault();
+
+			let isAmount = checkAmount() ; 
+
+
+
+
+			let isFormValid = isAmount;
+
+			if (isFormValid) {
+							
+							const fundObj = {
+							        fund:document.getElementById('amount').value,
+							      };
+							      var dataArray = JSON.parse(localStorage.getItem("dataF"));
+							      var loginEmail = JSON.parse(localStorage.getItem("checking"));
+
+							      for (let i = 0; i < dataArray.length; i++) {
+							        for (let j = 0; j < loginEmail.length; j++) {
+							          if (dataArray[i].email == loginEmail[j].email) {
+							            alert(fundObj.fund);
+							            if (dataArray[i].fund >= 0) {
+							              dataArray[i].fund =
+							                parseInt(fundObj.fund) + parseInt(dataArray[i].fund);
+							                loginEmail[j].fund =
+							                parseInt(fundObj.fund) + parseInt(loginEmail[j].fund);
+							              alert(dataArray[i].fund);
+							              localStorage.setItem("dataF", JSON.stringify(dataArray));
+							              localStorage.setItem("checking", JSON.stringify(loginEmail));
+							              alert("Finally fund is added");
+							              window.location = "homepage.html";
+							              break;
+							            }
+							            break;
+							          }
+							        }
+							      }
+
+			}
+
+
+		});
+
+</script>
+</body>
+</html>

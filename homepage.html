@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: black;
+  color: white;
+}
+
+/* Increase the font size of the h1 element */
+.header h1 {
+  font-size: 40px;
+
+}
+
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #DCD9D9;
+  width: 100%;
+  padding: 5px;
+}
+.fakeimg img {
+  max-width: 100%;
+  height: 190px;
+  margin-left: 10px;
+  shape-margin: 5px;
+}
+
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width:100%;
+  }
+}
+
+</style>
+</head>
+<body>
+
+
+<div class="header" >
+  
+  <h1>Banking App</h1>
+  <p>Change the way of thinking.</p>
+</div>
+
+<div class="navbar">
+  <a href="#">Home</a>
+  <a href="addfund.html">Add Fund</a>
+  <a href="transferfund.html">Transfer Fund</a>
+  <a href="login.html" class="right" >Logout</a>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2>Account Info</h2>
+  <!--   <input type="email" name="Email" id="email" placeholder="Enter Your Email:"> -->
+    <input type="submit" name="Balance" id="asd" value="Show Balance"> 
+    <p id = "sho"></p>
+    <p>Account Information means any information relating to the Account including without limitation the Account number, Account balance or value, gross receipts, withdrawals and payments to or from the Account...</p>
+    
+  </div>
+  <div class="main">
+    <h2>Islamic Bank</h2>
+    <h5>Since, Dec 7, 1917</h5>
+    <div class="fakeimg" ">
+      <img src="bank1.jpg">
+      <img src="bank4.jpg">
+      <img src="bank5.jpg">
+    </div>
+    <h3>What is Islamic Banking?</h3>
+    <p>Islamic banking, also referred to as Islamic finance or shariah-compliant finance, refers to finance or banking activities that adhere to shariah (Islamic law). Two fundamental principles of Islamic banking are the sharing of profit and loss, and the prohibition of the collection and payment of interest by lenders and investors..</p>
+    <h3>Understanding Islamic Banking?</h3>
+    <p>There are more than 300 banks and 250 mutual funds around the world that comply with Islamic principles. Between 2000 and 2017, Islamic banks' capital grew from $200 billion to close to $2 trillion and are projected to grow to $3.5 trillion by 2021, according to 2016 Thompson Reuters’ report. This growth is largely due to the rising economies of Muslim countries (especially those that have benefited from the rising price of oil).<br><br>Islamic banking is grounded in the tenets of the Islamic faith as they relate to commercial transactions. The principles of Islamic banking are derived from the Qur'an–the central religious text of Islam. In Islamic banking, all transactions must be compliant with shariah, the legal code of Islam (based on the teachings of the Qur'an). The rules that govern commercial transactions in Islamic banking are referred to as Fiqh al-muamalat.</p>
+    <br>
+    <h2>Conventional Bank</h2>
+    <h5>Since, Sep 2, 1900</h5>
+    <div class="fakeimg">
+      <img src="bank1.jpg">
+      <img src="bank4.jpg">
+      <img src="bank5.jpg">
+    </div>
+    <h3>What is Conventional Banking?</h3>
+    <p>Conventional banks accept deposits on the basis of loan for all
+types of deposit accounts including Term Deposit, Savings and
+Currents accounts. Interest based returns are provided for the
+Savings accounts and Term Deposits, whereas Current
+Accounts may offer free banking facilities. In addition to this,
+conventional bank invests the deposits in non-shariah
+compliant avenues and subsequently earns non-shariah
+compliant returns.
+</p>
+  </div>
+</div><br>
+
+<div class="footer">
+  <h2>Footer</h2>
+</div>
+
+
+<script type="text/javascript">
+  
+  const subm = document.getElementById('asd');
+
+  subm.addEventListener('click', function(e){
+      e.preventDefault();
+
+      var allEntries = JSON.parse(localStorage.getItem("dataF"));
+      var loginEmail = JSON.parse(localStorage.getItem("checking"));
+
+      for (var i = 0; i < allEntries.length; i++) {
+        for (let j = 0; j < loginEmail.length; j++) {
+          if (loginEmail[j].email == allEntries[i].email) {
+            // alert("Your Current Balance is: " + allEntries[i].fund);
+            document.getElementById("sho").innerHTML = allEntries[i].fund;
+            break;
+          }
+        }
+      }
+
+
+  
+    //alert(allEntries.fund);
+
+  });
+
+  
+      
+</script>
+
+
+</body>
+</html>
